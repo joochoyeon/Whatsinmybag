@@ -1,0 +1,206 @@
+/* =========================================
+   1. 공통 초기화 및 화면 전환 로직
+   ========================================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+a { text-decoration: none; color: inherit; }
+img { display: block; }
+
+/* PC를 기본으로 설정 */
+.pc-wrap { display: block; }
+.mobile-wrap { display: none; }
+
+/* =========================================
+   2. PC 버전 스타일 (기본)
+   ========================================= */
+
+body {
+    width: 100%;           
+    min-height: 100vh;     
+    margin: 0;
+    overflow-x: hidden;    
+    background: white;
+
+    display: block; 
+}
+/* 캔버스 */
+.canvas {
+    position: relative;
+    
+    width: 100%;
+    max-width: 1920px; 
+    
+    margin: 0 auto; 
+    
+    height: 1220px; 
+    box-sizing: border-box;
+    overflow: hidden; 
+}
+
+/* 타이틀 (PC) */
+.home-title {
+    position: absolute;
+    top: 50px;
+    left: 80px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.pixel-text {
+    font-family: "Press Start 2P", cursive;
+    font-size: 60px;
+}
+
+/* 가방 이미지 컨테이너 (PC) */
+.bag-container {
+    position: absolute;
+    display: block;
+    top: 150px;
+    left: 0;
+    width: 100%;
+    height: 850px;
+}
+
+/* PC용 개별 가방 아이템 */
+.bag-item {
+    position: absolute;
+    max-width: 30%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.bag-item:hover {
+    transform: scale(1.05);
+}
+
+/* PC 가방 위치 */
+.bag1 { top: 9%; left: 36%; width: 25%; transform: rotate(15deg); }
+.bag2 { bottom: 10%; right: 14%; width: 27%; transform: rotate(5deg); }
+.bag3 { top: -11%; right: 8%; width: 25%; transform: rotate(-10deg); }
+.bag4 { bottom: 13%; left: 20%; width: 23%; transform: rotate(-5deg); }
+.bag5 { top: 5%; left: 9%; width: 22%; transform: rotate(-10deg); }
+
+/* PC 푸터 */
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #B4B4B4;
+    padding: 48px 80px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #131313;
+    border-top: 1px solid #ebebeb;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: left;
+    line-height: 1.5;
+    width: 100%;
+}
+
+.contact-info, .copyright, .class-info { width: 30%; }
+.copyright { text-align: center; font-weight: 700; }
+.class-info { text-align: right; }
+
+
+/* =========================================
+   3. 모바일 버전 스타일 (1024px 이하)
+   ========================================= */
+
+@media screen and (max-width: 1024px) {
+
+    /* PC 숨김, 모바일 보임 */
+    .pc-wrap { display: none; }
+    .mobile-wrap { display: block; }
+
+    /* 모바일 Body 배경 및 폰트 변경 */
+    body {
+        background-color: #eee;
+        font-family: 'Noto Serif KR', serif;
+        /* Flex 설정은 PC와 비슷하지만 방향 등을 위해 리셋 */
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+    }
+    
+    img { max-width: 100%; height: auto; }
+
+    /* 모바일 컨테이너 */
+    .home-container {
+        max-width: 480px; 
+        width: 100%;
+        margin: 0 auto;
+        background: #f6f6f6;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        padding: 0 16px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 모바일 헤더 */
+    .main-header { padding: 30px 30px; }
+    
+    .pixel-title {
+        font-family: 'Press Start 2P', sans-serif;
+        font-size: 24px;
+        color: #000;
+    }
+
+    /* 모바일 가방 그리드 */
+    .bag-grid {
+        flex-grow: 1; 
+        min-height: calc(100vh - 60px - 20px + 5px); 
+        position: relative;
+        padding: 20px;
+    }
+
+    /* 모바일 가방 아이템 (.bag-item-m 으로 이름 변경하여 PC 충돌 방지) */
+    .bag-item-m {
+        display: block;
+        position: absolute; 
+        transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        cursor: pointer;
+    }
+
+    .bag-item-m:hover {
+        transform: scale(1.15);
+        z-index: 10;
+    }
+
+    /* 모바일 개별 위치 (nth-child 사용) */
+    .bag-grid a:nth-child(1) { width: 70%; top: 10%; left: -5%; }
+    .bag-grid a:nth-child(2) { width: 60%; top: -3%; right: 0%; }
+    .bag-grid a:nth-child(3) { width: 60%; top: 30%; right: -5%; }
+    .bag-grid a:nth-child(4) { width: 80%; top: 50%; left: 0%; }
+    .bag-grid a:nth-child(5) { width: 70%; top: 70%; right: -15%; }
+
+    /* 모바일 푸터 (.footer-m 으로 변경) */
+    .footer-m {
+        width: auto;
+        background: #bfbfbf;
+        margin-top: auto; 
+        margin-left: -16px; margin-right: -16px;
+        padding: 30px 16px; 
+        display: flex; justify-content: space-between; align-items: flex-start;
+        font-family: "Noto Sans KR", sans-serif; font-size: 10px; color: #333; line-height: 1.4;
+        
+        /* PC 푸터 스타일이 적용되지 않도록 위치 초기화 */
+        position: static; 
+        border-top: none;
+    }
+
+    .footer-m div { width: 32%; word-break: break-all; }
+    .footer-m h4 { font-size: 12px; font-weight: 700; margin-bottom: 8px; color: #000; }
+    .footer-left { text-align: left; }
+    .footer-center { text-align: center; padding-top: 5px; }
+    .footer-center p:first-child { font-weight: 500; margin-bottom: 4px; }
+    .footer-center p:last-child { margin-top: 4px; font-weight: 500; }
+    .footer-right { text-align: right; }
+}

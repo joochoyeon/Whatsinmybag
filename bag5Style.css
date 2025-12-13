@@ -1,0 +1,207 @@
+/* =========================================
+   1. 공통 초기화
+   ========================================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+img { display: block; }
+
+/* 기본: PC 표시, 모바일 숨김 */
+.pc-wrap { display: block; }
+.mobile-wrap { display: none; }
+
+
+/* =========================================
+   2. PC 버전 스타일 (기본)
+   ========================================= */
+body {
+    font-family: "Noto Sans KR", sans-serif;
+    background-color: #f6f6f6;
+    color: #111;
+    overflow-x: hidden;
+}
+
+/* PC 컨테이너 */
+.pc-wrap .container {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: 0 100px;  
+    position: relative;
+}
+
+/* PC 헤더 */
+.header { padding: 80px 0px 0; text-align: left; position: relative; }
+.sub-title { font-family: "Black Han Sans", sans-serif; font-weight: 400; line-height: 100px; color: #333; }
+.sub-title .small-text { font-size: 70px; color: #228da8; display: inline-block; margin-bottom: 10px; }
+.sub-title .big-text { font-size: 100px; color: #2b2b2b; letter-spacing: 0px; }
+.logo-img { display: block; width: 200px; margin-bottom: 3px; }
+
+/* PC 메인 & 캔버스 */
+.pc-wrap main { width: 100%; height: 1550px; }
+.pc-wrap .canvas { position: relative; width: 100%; height: 100%; }
+
+/* PC 가방 레이어 */
+.pc-wrap .bag-layer { position: absolute; top: 700px; left: 47%; transform: translateX(-50%); width: 650px; z-index: 1; }
+.pc-wrap .bag-layer img { width: 140%; }
+
+/* PC 스티커 아이템 공통 */
+.sticker-item { position: absolute; z-index: 10; }
+.sticker-item .sticker-img { display: block; height: auto; transition: transform 180ms ease; }
+.sticker-item:hover .sticker-img { transform: scale(1.02) rotate(0.5deg); }
+
+/* PC 텍스트 박스 */
+.desc-box {
+    position: absolute; padding: 0; background: transparent; border: none; white-space: nowrap; pointer-events: none;
+    opacity: 0; transform: translateY(6px) scale(0.98); transition: opacity 180ms ease, transform 220ms ease;
+}
+.sticker-item.active .desc-box { opacity: 1; transform: translateY(0) scale(1); z-index: 999; }
+
+.desc-box h3 { font-size: 20px; font-weight: 700; margin-bottom: 5px; }
+.desc-box p { font-size: 15px; color: #202020; line-height: 1.4; font-weight: 500; }
+
+/* PC 아이템 개별 위치 */
+.item1 { top: 0px; left: 0px; }
+.item1 .sticker-img { width: 270px; }
+.item1 .desc-box { top: 140px; left: 120px; margin-left: -107px; white-space: normal; }
+
+.item2 { top: -20px; left: 270px; }
+.item2 .sticker-img { width: 410px; transform: rotate(5deg); }
+.item2 .desc-box { top: 330px; left: 60%; margin-left: 10px; text-align: left; }
+
+.item3 { top: 315px; left: 700px; }
+.item3 .sticker-img { width: 330px; }
+.item3 .desc-box { top: 75%; left: 40%; margin-top: 15px; text-align: left; }
+
+.item4 { top: 100px; right: 420px; }
+.item4 .sticker-img { width: 230px; }
+.item4 .desc-box { top: -30%; left: 30%; text-align: left; }
+
+.item5 { top: 0px; right: 0px; }
+.item5 .sticker-img { width: 370px; }
+.item5 .desc-box { top: 110px; right: 30%; margin-right: 0px; text-align: right; white-space: normal; }
+
+.item6 { top: 430px; left: 10px; }
+.item6 .sticker-img { width: 340px; }
+.item6 .desc-box { top: 90%; left: 20%; margin-left: 30px; text-align: left; white-space: normal; }
+
+.item9 { top: 270px; right: 0px; }
+.item9 .sticker-img { width: 300px; }
+.item9 .desc-box { top: 100%; left: 0%; margin-top: 17px; text-align: left; white-space: normal; }
+
+.item11 { top: 780px; left: 0px; }
+.item11 .sticker-img { width: 280px; }
+.item11 .desc-box { top: 97%; left: 0px; margin-top: 15px; text-align: left; }
+
+/* PC 버튼들 */
+.backbutton { position: absolute; margin-right: 80px; top: 90px; right: 40px; z-index: 9999; cursor: pointer; }
+.back-button { width: 80px; height: auto; transition: opacity 0.3s ease, transform 0.2s ease; }
+.backbutton:hover .back-button { opacity: 0.7; transform: translateX(-4px); }
+
+.upbutton { position: fixed; margin-right: 80px; right: 40px; bottom: 40px; z-index: 999; cursor: pointer; }
+.up-button { width: 80px; height: auto; transition: opacity 0.3s; }
+.upbutton:hover .up-button { opacity: 0.7; }
+
+/* PC 푸터 */
+.pc-wrap footer { background-color: #b4b4b4; padding: 48px 0; width: 100%; font-size: 14px; color: #131313; border-top: 1px solid #ebebeb; }
+.pc-wrap .footer-content { display: flex; justify-content: space-between; text-align: left; line-height: 1.5; }
+.contact-info, .copyright, .class-info { width: 30%; }
+.contact-info { order: 1; }
+.copyright { order: 2; text-align: center; font-weight: 700; }
+.class-info { order: 3; text-align: right; }
+
+
+/* =========================================
+   3. 모바일 버전 스타일 (1024px 이하)
+   ========================================= */
+@media screen and (max-width: 1024px) {
+
+    /* PC 숨김, 모바일 보임 */
+    .pc-wrap { display: none; }
+    .mobile-wrap { display: block; }
+
+    /* 모바일 Body */
+    body { font-family: "Pretendard", sans-serif; background-color: #eee; }
+
+    /* 모바일 컨테이너 */
+    .container-m {
+        max-width: 480px; width: 100%; margin: 0 auto; background: #f6f6f6;
+        min-height: 100vh; position: relative; overflow-x: hidden; padding: 0 16px;
+    }
+
+    /* 모바일 헤더 */
+    .header-m { padding: 20px 0 20px; position: relative; }
+    .logo-img-m { width: 142px; display: block; margin-bottom: 10px; }
+    .sub-title-m { font-family: "Black Han Sans", sans-serif; font-weight: 400; line-height: 1.0; color: #333; }
+    .sub-title-m .small-text-m { font-size: 20px; color: #228da8; font-weight: 400 !important; display: inline-block; margin-bottom: 5px; }
+    .sub-title-m .big-text-m { font-size: 28px; color: #2B2B2B; letter-spacing: -1px; font-weight: 400 !important; }
+
+    /* 모바일 캔버스 */
+    .canvas-m { position: relative; width: 100%; height: 1200px; }
+
+    /* 모바일 가방 레이어 */
+    .bag-layer-m { position: absolute; top: 450px; left: 50%; transform: translateX(-50%); width: 80%; max-width: 380px; z-index: 1; }
+    .bag-layer-m img { width: 100%; display: block; }
+
+    /* 모바일 스티커 아이템 (.sticker-item-m) */
+    .sticker-item-m { position: absolute; z-index: 10; opacity: 0; transition: opacity 1s ease; }
+    .sticker-item-m.active { opacity: 1; }
+    .sticker-item-m .sticker-img-m { display: block; height: auto; }
+
+    /* 모바일 텍스트 박스 (.desc-box-m) */
+    .desc-box-m {
+        position: absolute; padding: 6px 8px; white-space: nowrap; pointer-events: none; font-family: "Noto Sans KR", sans-serif;
+        opacity: 1; transform: none;
+    }
+    .desc-box-m h3 { font-size: 12px; font-weight: 800; margin-bottom: 2px; letter-spacing: -0.5px; }
+    .desc-box-m p { font-size: 12px; color: #000; line-height: 1.35; font-weight: 500; padding-left: 8px; text-indent: -8px; }
+
+    /* 모바일 아이템 위치 */
+    .pos-catheter { top: 50px; left: 0%; }
+    .pos-catheter .sticker-img-m { width: 165px; }
+    .pos-catheter .desc-box-m { top: 70px; left: 0%; margin-left: 5px; }
+
+    .pos-medicine { top: 15px; right: 0%; }
+    .pos-medicine .sticker-img-m { width: 210px; }
+    .pos-medicine .desc-box-m { top: 85px; right: 3%; margin-right: 5px; text-align: left; }
+
+    .pos-band { top: 230px; left: 5%; }
+    .pos-band .sticker-img-m { width: 150px; }
+    .pos-band .desc-box-m { top: 110px; left: 35%; margin-left: 0px; text-align: left; }
+
+    .pos-stethoscope { top: 200px; left: 50%; }
+    .pos-stethoscope .sticker-img-m { width: 200px; }
+    .pos-stethoscope .desc-box-m { top: 185px; right: -5%; margin-right: 0px; text-align: left; }
+
+    .pos-ipad { top: 750px; left: 2%; }
+    .pos-ipad .sticker-img-m { width: 170px; }
+    .pos-ipad .desc-box-m { top: 165px; left: 20%; }
+
+    .pos-syringe { top: 710px; right: 5%; }
+    .pos-syringe .sticker-img-m { width: 160px; }
+    .pos-syringe .desc-box-m { top: 155px; right: -5%; text-align: left; transform: translateX(-10%); }
+
+    .pos-hangoverCure { top: 1000px; left: 5%; }
+    .pos-hangoverCure .sticker-img-m { width: 150px; }
+    .pos-hangoverCure .desc-box-m { top: 75px; left: 0%; }
+
+    .pos-wallet { top: 1000px; right: 15%; }
+    .pos-wallet .sticker-img-m { width: 120px; }
+    .pos-wallet .desc-box-m { top: -45px; right: -5%; margin-right: -10px; text-align: left; }
+
+    /* 모바일 버튼 */
+    .img-btn { position: fixed; bottom: 30px; z-index: 1000; left: auto; margin-left: 0; right: 20px; width: 50px; height: auto; display: block; }
+    .img-btn img { width: 100%; display: block; }
+
+    .header-back-btn { position: absolute; top: 60px; right: 5%; width: 30px; height: auto; z-index: 100; cursor: pointer; }
+    .header-back-btn img { width: 160%; display: block; }
+
+    /* 모바일 푸터 */
+    .footer-m { width: auto; background: #bfbfbf; margin-top: 50px; margin-left: -16px; margin-right: -16px; padding: 30px 16px; display: flex; justify-content: space-between; align-items: flex-start; font-family: "Noto Sans KR", sans-serif; font-size: 10px; color: #333; line-height: 1.4; }
+    .footer-m div { width: 32%; word-break: break-all; }
+    .footer-m h4 { font-size: 12px; font-weight: 700; margin-bottom: 8px; color: #000; }
+    .footer-left { text-align: left; }
+    .footer-center { text-align: center; padding-top: 5px; }
+    .footer-center p:first-child { font-weight: 500; margin-bottom: 4px; }
+    .footer-center p:last-child { margin-top: 4px; font-weight: 500; }
+    .footer-right { text-align: right; }
+}
